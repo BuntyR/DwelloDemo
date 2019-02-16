@@ -11,9 +11,18 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+
+        debug {
+            minifyEnabled false
+            debuggable true
+            shrinkResources false
+            buildConfigField("String", "BASE_URL", '"https://www.reddit.com/dev/api/"')
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BASE_URL", '"https://www.reddit.com/dev/api/"')
         }
     }
 }
@@ -22,6 +31,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation "com.android.support:design:28.0.0"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -33,7 +43,33 @@ dependencies {
     //Logger
     implementation 'com.orhanobut:logger:2.2.0'
 
+    //Dagger for Dependency Injection
+    implementation 'com.google.dagger:dagger:2.14.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+
     //CardView & RecylerView
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
+
+    //Retrofit for Network Calls
+    api "com.squareup.retrofit2:retrofit:2.3.0"
+    api "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+    api "com.squareup.retrofit2:converter-gson:2.3.0"
+
+    //okhttp
+    api "com.squareup.okhttp3:logging-interceptor:3.8.1"
+    api "com.squareup.okhttp3:okhttp:3.8.1"
+    api 'com.squareup.okio:okio:1.13.0'
+
+    //Chuck Interceptor to log all the request
+    debugImplementation ("com.readystatesoftware.chuck:library:1.1.0"){
+        exclude group: "com.android.support"
+        exclude group: "com.squareup.okhttp3"
+        exclude group: "com.google.code.gson"
+    }
+    releaseImplementation ("com.readystatesoftware.chuck:library-no-op:1.1.0"){
+        exclude group: "com.android.support"
+        exclude group: "com.squareup.okhttp3"
+        exclude group: "com.google.code.gson"
+    }
 }

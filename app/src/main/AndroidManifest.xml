@@ -3,6 +3,7 @@
     package="in.buntyrupela.dwellodemo">
 
     <application
+        android:name=".base.DwelloApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
