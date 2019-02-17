@@ -18,6 +18,7 @@ import in.buntyrupela.dwellodemo.BuildConfig;
 import in.buntyrupela.dwellodemo.data.local.AppLocalDataStore;
 import in.buntyrupela.dwellodemo.data.local.SharedPreferencesManager;
 import in.buntyrupela.dwellodemo.data.remote.AppRemoteDataStore;
+import in.buntyrupela.dwellodemo.data.utility.ImageLoaderGlide;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -95,20 +96,7 @@ public class DataModule {
     @Singleton
     Interceptor provideAuthorizationInterceptor(
             final SharedPreferencesManager mPrefs) {
-
         return null;
-
-        /*if (mPrefs.getAccessTokenNode() == null) {
-            return null;
-        }
-        return chain -> {
-            Request originalRequest = chain.request();
-
-            Request.Builder builder = originalRequest.newBuilder()
-                    .addHeader(X_ACCESS_TOKEN, mPrefs.getAccessTokenNode())
-                    .method(originalRequest.method(), originalRequest.body());
-            return chain.proceed(builder.build());
-        };*/
     }
 
 
@@ -118,18 +106,6 @@ public class DataModule {
     @Singleton
     Interceptor provideChuckInterceptor(Application application) {
         return new ChuckInterceptor(application);
-
-        /*if (mPrefs.getAccessTokenNode() == null) {
-            return null;
-        }
-        return chain -> {
-            Request originalRequest = chain.request();
-
-            Request.Builder builder = originalRequest.newBuilder()
-                    .addHeader(X_ACCESS_TOKEN, mPrefs.getAccessTokenNode())
-                    .method(originalRequest.method(), originalRequest.body());
-            return chain.proceed(builder.build());
-        };*/
     }
 
     @Provides
@@ -154,5 +130,12 @@ public class DataModule {
     @Singleton
     AppRemoteDataStore provideAppRemoteDataStore() {
         return new AppRemoteDataStore();
+    }
+
+    @Provides
+    @Singleton
+    ImageLoaderGlide provideImageLoaderGlide(Application application,
+                                             SharedPreferencesManager mPrefs) {
+        return new ImageLoaderGlide(application, mPrefs);
     }
 }

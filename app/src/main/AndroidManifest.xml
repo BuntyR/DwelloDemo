@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="in.buntyrupela.dwellodemo">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".base.DwelloApp"
         android:allowBackup="true"
@@ -10,9 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".features.home.HomeActivity"></activity>
+        <activity
+            android:name=".features.home.HomeActivity"
+            android:label="Dwello Assignment By Bunty Rupela"></activity>
         <activity
             android:name=".features.splash.SplashActivity"
+            android:noHistory="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
