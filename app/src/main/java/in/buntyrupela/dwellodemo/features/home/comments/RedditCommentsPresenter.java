@@ -9,6 +9,7 @@ import in.buntyrupela.dwellodemo.data.local.models.dwello.CommentsWithType;
 import in.buntyrupela.dwellodemo.data.utility.DwelloUtility;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
@@ -18,12 +19,14 @@ public class RedditCommentsPresenter implements RedditCommentContract.Presenter 
     private final AppRepository mAppRepository;
     private final Gson gson;
     private final RedditCommentContract.View mView;
+    private final CompositeDisposable mDisposable;
 
     public RedditCommentsPresenter(AppRepository mAppRepository, Gson gson,
                                    RedditCommentContract.View mView) {
         this.mAppRepository = mAppRepository;
         this.gson = gson;
         this.mView = mView;
+        mDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -36,7 +39,7 @@ public class RedditCommentsPresenter implements RedditCommentContract.Presenter 
                 .subscribe(new SingleObserver<ResponseBody>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        mDisposable.add(d);
                     }
 
                     @Override
@@ -63,6 +66,8 @@ public class RedditCommentsPresenter implements RedditCommentContract.Presenter 
 
     @Override
     public void unsubscribe() {
-
+        if (!mDisposable.isDisposed()) {
+            mDisposable.clear();
+        }
     }
 }

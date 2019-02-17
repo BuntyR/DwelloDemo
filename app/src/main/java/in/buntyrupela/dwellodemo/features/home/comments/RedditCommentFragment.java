@@ -116,4 +116,10 @@ public class RedditCommentFragment extends BaseFragment implements RedditComment
         fragment.setArguments(args);
         return fragment;
     }
+
+    @Override
+    public void onDestroyView() {
+        mPresenter.unsubscribe();
+        super.onDestroyView();
+    }
 }

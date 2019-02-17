@@ -155,4 +155,10 @@ public class HotRedditFragment extends BaseFragment implements HotRedditContract
     public void onRedditClick(String redditId) {
         replaceFragment(RedditCommentFragment.newInstance(redditId), true);
     }
+
+    @Override
+    public void onDestroyView() {
+        mPresenter.unsubscribe();
+        super.onDestroyView();
+    }
 }

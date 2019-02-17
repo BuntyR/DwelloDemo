@@ -4,6 +4,7 @@ import in.buntyrupela.dwellodemo.data.AppRepository;
 import in.buntyrupela.dwellodemo.data.local.models.hot.HotRedditResponse;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -11,11 +12,13 @@ public class HotRedditPresenter implements HotRedditContract.Presenter {
 
     private final AppRepository mAppRepository;
     private final HotRedditContract.View mView;
+    private final CompositeDisposable mDisposable;
 
     public HotRedditPresenter(AppRepository mAppRepository, HotRedditContract.View mView) {
         this.mAppRepository = mAppRepository;
         this.mView = mView;
         mView.setPresenter(this);
+        mDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -28,7 +31,7 @@ public class HotRedditPresenter implements HotRedditContract.Presenter {
                 .subscribe(new SingleObserver<HotRedditResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        mDisposable.add(d);
                     }
 
                     @Override
@@ -56,7 +59,7 @@ public class HotRedditPresenter implements HotRedditContract.Presenter {
                 .subscribe(new SingleObserver<HotRedditResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        mDisposable.add(d);
                     }
 
                     @Override
@@ -81,6 +84,8 @@ public class HotRedditPresenter implements HotRedditContract.Presenter {
 
     @Override
     public void unsubscribe() {
-
+        if (!mDisposable.isDisposed()) {
+            mDisposable.clear();
+        }
     }
 }
