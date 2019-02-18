@@ -96,7 +96,7 @@ public class HotRedditFragment extends BaseFragment implements HotRedditContract
 
     @Override
     public void hotRedditsFailed() {
-
+        showSnackbarBase("Couldn't get data, please try after some time");
     }
 
     @Override
@@ -106,11 +106,13 @@ public class HotRedditFragment extends BaseFragment implements HotRedditContract
 
     @Override
     public void showLoading() {
+        isLoading = true;
         showProgressDialog();
     }
 
     @Override
     public void hideLoading() {
+        isLoading = false;
         hideProgressDialog();
     }
 

@@ -3,6 +3,7 @@ package in.buntyrupela.dwellodemo.base;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,6 +15,8 @@ import com.orhanobut.logger.Logger;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import in.buntyrupela.dwellodemo.R;
+
+import static android.support.design.widget.Snackbar.make;
 
 public class BaseFragment extends Fragment {
     private Unbinder unbinder;
@@ -40,6 +43,13 @@ public class BaseFragment extends Fragment {
 
     protected void hideProgressDialog() {
         if (progressBar != null) progressBar.setVisibility(View.GONE);
+    }
+
+    protected void showSnackbarBase(String message) {
+        if (getView() != null) {
+            Snackbar snackbar = make(getView(), message, Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
     }
 
     @Override

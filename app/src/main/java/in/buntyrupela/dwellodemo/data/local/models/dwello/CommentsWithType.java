@@ -1,16 +1,21 @@
 package in.buntyrupela.dwellodemo.data.local.models.dwello;
 
 public class CommentsWithType {
-    String commentType;
-    String author;
-    String body;
-    int count;
+    private String commentType;
+    private String author;
+    private String body;
+    private int count;
+    private int depth;
+    private int ups;
 
-    public CommentsWithType(String commentType, String author, String body, int count) {
+    public CommentsWithType(String commentType, String author, String body, int count, int depth,
+                            int ups) {
         this.commentType = commentType;
         this.author = author;
         this.body = body;
         this.count = count;
+        this.depth = depth;
+        this.ups = ups;
     }
 
     public String getCommentType() {
@@ -45,6 +50,22 @@ public class CommentsWithType {
         this.count = count;
     }
 
+    public int getDepth() {
+        return depth;
+    }
+
+    public void setDepth(int depth) {
+        this.depth = depth;
+    }
+
+    public int getUps() {
+        return ups;
+    }
+
+    public void setUps(int ups) {
+        this.ups = ups;
+    }
+
     @Override
     public String toString() {
         return "CommentsWithType{" +
@@ -52,6 +73,8 @@ public class CommentsWithType {
                 ", author='" + author + '\'' +
                 ", body='" + body + '\'' +
                 ", count=" + count +
+                ", depth=" + depth +
+                ", ups=" + ups +
                 '}';
     }
 }

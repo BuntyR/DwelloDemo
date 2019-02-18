@@ -91,7 +91,7 @@ public class RedditCommentFragment extends BaseFragment implements RedditComment
 
     @Override
     public void redditCommentsFailed() {
-
+        showSnackbarBase("Couldn't get data, please try after some time");
     }
 
     @Override
